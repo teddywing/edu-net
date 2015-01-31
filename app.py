@@ -4,6 +4,8 @@ from flask import Flask
 
 from flask_user import SQLAlchemyAdapter, UserManager
 
+from modules.home.views import index_view
+
 from modules.shared.models import db
 from modules.interest.models import Interest, UserInterest
 from modules.user.models import User, UserAuth
@@ -24,9 +26,7 @@ with app.app_context():
 db_adapter = SQLAlchemyAdapter(db,  User, UserAuthClass=UserAuth)
 user_manager = UserManager(db_adapter, app)
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+app.add_url_rule('/', 'index', index_view)
 
 if __name__ == "__main__":
     app.run()
