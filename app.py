@@ -3,6 +3,7 @@ from flask import Flask
 from flask_user import SQLAlchemyAdapter, UserManager
 
 from modules.shared.models import db
+from modules.interest.models import Interest, UserInterest
 from modules.user.models import User, UserAuth
 
 app = Flask(__name__)
