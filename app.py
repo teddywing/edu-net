@@ -1,5 +1,23 @@
 from flask import Flask
+
+from flask_user import SQLAlchemyAdapter, UserManager
+
+from modules.shared.models import db
+from modules.user.models import User, UserAuth
+
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
+app.config['SECRET_KEY'] = 'this should definitely be changed to an ' \
+    'environment variable'
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
+# Setup Flask-User
+db_adapter = SQLAlchemyAdapter(db,  User, UserAuthClass=UserAuth)
+user_manager = UserManager(db_adapter, app)
 
 @app.route("/")
 def hello():
