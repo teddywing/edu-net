@@ -1,2 +1,7 @@
+*.pyc
+
+# Database
+development.db
+
 # Virtualenv and vendor packages
 /virtualenv
