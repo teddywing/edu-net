@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 
 from flask_user import SQLAlchemyAdapter, UserManager
@@ -11,6 +13,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
 app.config['SECRET_KEY'] = 'this should definitely be changed to an ' \
     'environment variable'
+if not os.environ.get('EDU_APP_ENV'):
+    app.debug = True
 db.init_app(app)
 
 with app.app_context():
